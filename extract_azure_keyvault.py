@@ -10,14 +10,13 @@ from azure.keyvault.secrets import SecretClient
 
 def init_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--branch", type=str, default="test", help="The current branch"
-    )
+    parser.add_argument("--branch", type=str, default="test", help="The current branch")
+    parser.add_argument("--root", type=str, help="parameters directory")
     return parser
 
 
-def _load_config_file(branch: str, environ: dict):
-    with open(f"{branch}.cfg", "r") as fp:
+def _load_config_file(root: str, branch: str, environ: dict):
+    with open(f"{root}/{branch}.cfg", "r") as fp:
         for line in fp:
             line = line.strip()
             if not len(line) or line[0] == "#":
@@ -63,7 +62,7 @@ if __name__ == "__main__":
     parser = init_parser()
     p = parser.parse_args()
     vars: Dict[str, str] = {}
-    _load_config_file(p.branch, vars)
+    _load_config_file(p.root, p.branch, vars)
     # _test_env()
     secrets_to_mask = _load_azure_env(vars)
     masked = set()
