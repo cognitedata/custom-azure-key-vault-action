@@ -16,5 +16,6 @@ runs:
         AZURE_CLIENT_SECRET: ${{ inputs.azure-client-secret }}
       run: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+        source $HOME/.poetry/env
         cd ${GITHUB_WORKSPACE}/parameters
         poetry run python ../extract_azure_keyvault.py --branch ${{ inputs.config }}      
