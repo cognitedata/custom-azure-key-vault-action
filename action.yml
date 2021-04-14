@@ -11,11 +11,10 @@ runs:
   using: "composite"
   steps:
     - name: Add Azure secrets to environment
-      shell: python
+      shell: bash
       env:
         AZURE_CLIENT_SECRET: ${{ inputs.azure-client-secret }}
       run: |
-        pip install azure-identity
-        pip install azure-keyvault-secrets
+        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
         cd ${GITHUB_WORKSPACE}/parameters
-        python ../extract_azure_keyvault.py --branch ${{ inputs.config }}      
+        poetry run python ../extract_azure_keyvault.py --branch ${{ inputs.config }}      
