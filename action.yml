@@ -1,0 +1,21 @@
+name: 'Custom Azuze Keyvault Extractor'
+description: 'Reads secrets into the environment. parameters/{branch}.cfg required'
+inputs:
+  azure-client-secret:
+    description: 'Azure Client Secret'
+    required: true
+  config:
+    description: 'Input config file placed in parameters folder'
+    requried: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v2
+    - name: Add Azure secrets to environment
+      env:
+        AZURE_CLIENT_SECRET: ${{ inputs.azure-client-secret }}
+      run: |
+        pip install azure-identity
+        pip install azure-keyvault-secrets
+        cd ${GITHUB_WORKSPACE}/parameters
+        python ../extract_azure_keyvault.py --branch ${{ inputs.config }}      
