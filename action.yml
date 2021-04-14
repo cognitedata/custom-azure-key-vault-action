@@ -10,8 +10,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-python@v2
     - name: Add Azure secrets to environment
+      shell: python
       env:
         AZURE_CLIENT_SECRET: ${{ inputs.azure-client-secret }}
       run: |
