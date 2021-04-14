@@ -18,5 +18,5 @@ runs:
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
         source $HOME/.poetry/env
         cd ${{ github.action_path }}
-        poetry install
+        poetry install --no-root
         poetry run python ${{ github.action_path }}/extract_azure_keyvault.py --branch ${{ inputs.config }} --root ${GITHUB_WORKSPACE}/parameters
