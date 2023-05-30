@@ -53,7 +53,10 @@ def _load_azure_env(environ: dict):
         name = secret.name
         value = client.get_secret(name)
         name = name.replace("-", "_")
-        environ[name] = shlex.quote(value.value)
+        if environ["ESCAPE_VALUE"] == 'true':
+            environ[name] = shlex.quote(value.value)
+        else:
+            environ[name] = value.value
         secrets_to_mask.append(environ[name])
     return list(set(secrets_to_mask))
 
