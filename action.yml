@@ -7,6 +7,10 @@ inputs:
   config:
     description: 'Input config file placed in parameters folder'
     requried: true
+  escape-values:
+    description: 'Enable shell-escape for key vault values'
+    default: 'true'
+    requried: false
 runs:
   using: "composite"
   steps:
@@ -14,6 +18,7 @@ runs:
       shell: bash
       env:
         AZURE_CLIENT_SECRET: ${{ inputs.azure-client-secret }}
+        ESCAPE_VALUES: ${{ inputs.escape-values }}
       run: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
         cd ${{ github.action_path }}
