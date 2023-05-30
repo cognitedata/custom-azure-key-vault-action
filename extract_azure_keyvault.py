@@ -53,7 +53,7 @@ def _load_azure_env(environ: dict):
         name = secret.name
         value = client.get_secret(name)
         name = name.replace("-", "_")
-        if environ["ESCAPE_VALUES"] == 'true':
+        if os.environ["ESCAPE_VALUES"] == 'true':
             environ[name] = shlex.quote(value.value)
         else:
             environ[name] = value.value
