@@ -37,7 +37,7 @@ def _load_azure_env(environ: dict):
 
     print(environ["AZURE_TENANT_ID"])
     print(environ["AZURE_CLIENT_ID"])
-    print(os.environ["AZURE_CLIENT_SECRET"])
+    print(os.environ["AZURE_CLIENT_SECRET"][:3] + "...")
 
     credential = ClientSecretCredential(
         tenant_id=environ["AZURE_TENANT_ID"],
@@ -53,7 +53,7 @@ def _load_azure_env(environ: dict):
         name = secret.name
         value = client.get_secret(name)
         name = name.replace("-", "_")
-        if os.environ["ESCAPE_VALUES"] == 'true':
+        if os.environ["ESCAPE_VALUES"].lower() == 'true':
             environ[name] = shlex.quote(value.value)
         else:
             environ[name] = value.value
@@ -78,4 +78,3 @@ if __name__ == "__main__":
                 print(f"::add-mask::{vars[key]}")
             fp.write(f"{key}={vars[key]}\n")
             print(f"Key {key} Length of secret: {len(vars[key])}")
-
