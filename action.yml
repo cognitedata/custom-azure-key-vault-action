@@ -6,11 +6,11 @@ inputs:
     required: true
   config:
     description: 'Input config file placed in parameters folder'
-    requried: true
+    required: true
   escape-values:
     description: 'Enable shell-escape for key vault values'
-    default: 'true'
-    requried: false
+    default: true
+    required: false
 runs:
   using: "composite"
   steps:
