@@ -5,12 +5,12 @@ inputs:
     description: 'Azure Client Secret'
     required: true
   config:
-    description: 'Input config file placed in parameters folder'
-    requried: true
+    description: 'Input config file placed in parameters folder (do not include file suffix '.cfg')
+    required: true
   escape-values:
     description: 'Enable shell-escape for key vault values'
-    default: 'true'
-    requried: false
+    default: true
+    required: false
 runs:
   using: "composite"
   steps:
