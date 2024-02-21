@@ -66,10 +66,7 @@ if __name__ == "__main__":
     p = parser.parse_args()
     vars: Dict[str, str] = {}
     _load_config_file(p.root, p.branch, vars)
-    # _test_env()
     secrets_to_mask = _load_azure_env(vars)
-    masked = set()
-    export = "set" if "nt" in os.name else "export"
 
     print(f'write to {os.environ["GITHUB_ENV"]}')
     with open(os.environ["GITHUB_ENV"], "a+") as fp:
