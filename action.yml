@@ -21,6 +21,6 @@ runs:
         ESCAPE_VALUES: ${{ inputs.escape-values }}
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-        cd $GITHUB_ACTION_PATH
+        cd ${{ github.action_path }}
         poetry install --no-root
-        poetry run python $GITHUB_ACTION_PATH/extract_azure_keyvault.py --branch ${{ inputs.config }} --root ${GITHUB_WORKSPACE}/parameters
+        poetry run python ${{ github.action_path }}/extract_azure_keyvault.py --branch ${{ inputs.config }} --root ${GITHUB_WORKSPACE}/parameters
