@@ -5,7 +5,7 @@ inputs:
     description: 'Azure Client Secret'
     required: true
   config:
-    description: 'Input config file placed in parameters folder (do not include file suffix '.cfg')
+    description: 'Input config file placed in parameters folder (do not include file suffix .cfg)'
     required: true
   escape-values:
     description: 'Enable shell-escape for key vault values'
@@ -14,6 +14,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+
     - name: Add Azure secrets to environment
       shell: bash
       env:
@@ -21,6 +22,8 @@ runs:
         ESCAPE_VALUES: ${{ inputs.escape-values }}
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-        cd ${{ github.action_path }}
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        export PATH="$HOME/.local/bin:$PATH"
+        cd $GITHUB_ACTION_PATH
         poetry install --no-root
-        poetry run python ${{ github.action_path }}/extract_azure_keyvault.py --branch ${{ inputs.config }} --root ${GITHUB_WORKSPACE}/parameters
+        poetry run python $GITHUB_ACTION_PATH/extract_azure_keyvault.py --branch ${{ inputs.config }} --root ${GITHUB_WORKSPACE}/parameters
