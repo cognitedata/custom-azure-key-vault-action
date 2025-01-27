@@ -14,7 +14,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-
     - name: Add Azure secrets to environment
       shell: bash
       env:
@@ -22,8 +21,6 @@ runs:
         ESCAPE_VALUES: ${{ inputs.escape-values }}
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-        export PATH="$HOME/.local/bin:$PATH"
         cd $GITHUB_ACTION_PATH
         poetry install --no-root
         poetry run python $GITHUB_ACTION_PATH/extract_azure_keyvault.py --branch ${{ inputs.config }} --root ${GITHUB_WORKSPACE}/parameters
