@@ -47,7 +47,7 @@ def _load_azure_env(environ: dict):
     keyVaultName = environ["AZURE_VAULT_NAME"]
     KVUri = f"https://{keyVaultName}.vault.azure.net"
     print(f"Extracting secrets from {KVUri}")
-    client = SecretClient(vault_url=KVUri, credential=credential)
+    client = SecretClient(vault_url=KVUri, credential=credential, verify_challenge_resource=False)
     secrets_to_mask = []
     for secret in client.list_properties_of_secrets():
         name = secret.name
